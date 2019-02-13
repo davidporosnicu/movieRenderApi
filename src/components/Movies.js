@@ -5,7 +5,7 @@ const Movie = (props) => {
 
   return (
     <div>
-      <MovieCard moviesArray={props.moviesArray}/>
+      <MovieCard changePage={props.changePage} moviesArray={props.moviesArray}/>
    </div>
   )
 }
