@@ -18,11 +18,12 @@ class Movie extends React.Component {
   }
 
   render() {
+    const image = `https://image.tmdb.org/t/p/w185/${this.state.movie.poster_path}`;
     return (
       <div className="ui container">
         <div className="ui medium centered image card">
           <div className="image">
-            <img src="https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg"/> 
+            <img src={image} /> 
           </div>
           <div className="content">
             <h2 className="header">{this.state.movie.title}</h2>
