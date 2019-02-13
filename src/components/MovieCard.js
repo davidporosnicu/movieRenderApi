@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Movie from './Movie';
 
 class MovieCard extends React.Component {
 
@@ -10,7 +9,7 @@ class MovieCard extends React.Component {
 
   render(){
     const eachMovie = this.props.moviesArray.map(movie =>
-        <li className="ui raised very padded text container segment">
+        <li key={movie} className="ui raised very padded text container segment">
           <h2 className="ui header">{movie.title}</h2>
           <p>{movie.overview}</p>
           

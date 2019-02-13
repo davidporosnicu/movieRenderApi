@@ -9,7 +9,7 @@ class Movie extends React.Component {
   
   componentDidMount() {
     const id = this.props.match.params.id;
-    const data = axios.get('https://api.themoviedb.org/3/discover/movie?api_key=1f334378cac29e0294a146e77d2aa505')
+    axios.get('https://api.themoviedb.org/3/discover/movie?api_key=1f334378cac29e0294a146e77d2aa505')
     .then(response => {
       const movie = response.data.results.filter(x => x['id'] === JSON.parse(id));
       const objMovie = movie.pop();
@@ -23,14 +23,14 @@ class Movie extends React.Component {
       <div className="ui container">
         <div className="ui medium centered image card">
           <div className="image">
-            <img src={image} /> 
+            <img src={image} alt={this.state.movie.title}/> 
           </div>
           <div className="content">
             <h2 className="header">{this.state.movie.title}</h2>
-            <div class="meta">
-            <span class="date">Release date: {this.state.movie.release_date}</span>
+            <div className="meta">
+            <span className="date">Release date: {this.state.movie.release_date}</span>
           </div>
-          <div class="description">{this.state.movie.overview}
+          <div className="description">{this.state.movie.overview}
           </div>
           </div>
         </div>
