@@ -1,10 +1,10 @@
 import React from 'react';
-import MovieCard from './MovieCard';
+import Movies from './Movies';
 
 class App extends React.Component {
   render(){
     return(
-      <div className="ui container"><MovieCard /></div>
+      <div className="ui container"><Movies /></div>
     );
   }
 }
