@@ -1,9 +1,9 @@
 import React from 'react'
 import Movies from './Movies'
-import axios from 'axios'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Error from './Error'
 import Movie from './Movie'
+import SearchMovie from './SearchMovie'
 
 class App extends React.Component {
   render () {
@@ -13,6 +13,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={Movies} />
             <Route exact path='/movie/:id' component={Movie} />
+            <Route exact path='/search' component={SearchMovie} />
             <Route component={Error} />
           </Switch>
         </div>

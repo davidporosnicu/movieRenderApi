@@ -20,7 +20,7 @@ class Movies extends React.Component {
   render () {
     return (
       <div>
-        <ul>
+        <ul style={{ listStyleType: 'none' }}>
           {this.state.moviesArray.map(movie => (
             <li key={movie.id}>
               <MovieCard details={movie} />
