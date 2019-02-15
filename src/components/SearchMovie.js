@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-// import queryString from 'query-string'
+import queryString from 'query-string'
 import MovieList from './MovieList'
 
 class SearchMovie extends React.PureComponent {
@@ -12,9 +12,15 @@ class SearchMovie extends React.PureComponent {
     }
   }
 
+  getQueryName () {
+    const values = queryString.parse(this.props.location.search)
+    return values.name
+  }
+
   componentDidMount () {
-    if (this.props.location.key) {
-      this.getApi()
+    const name = this.getQueryName()
+    if (name) {
+      this.getApi(name)
     }
   }
 
@@ -22,14 +28,10 @@ class SearchMovie extends React.PureComponent {
     this.setState({ name: e.target.value })
   }
 
-  getApi = () => {
+  getApi = movie => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=1f334378cac29e0294a146e77d2aa505&language=en-US&query=${
-          this.props.location.key
-            ? this.props.match.params.movie
-            : this.state.name
-        }=1&include_adult=false`
+        `https://api.themoviedb.org/3/search/movie?api_key=1f334378cac29e0294a146e77d2aa505&language=en-US&query=${movie}=1&include_adult=false`
       )
       .then(response => {
         this.setState({ moviesArray: response.data.results })
@@ -38,8 +40,11 @@ class SearchMovie extends React.PureComponent {
 
   onFormSubmit = e => {
     e.preventDefault()
-    this.props.history.push(`/search/${this.state.name}`)
-    this.getApi()
+    this.props.history.push({
+      pathname: '/search/',
+      search: `?name=${this.state.name}`
+    })
+    this.getApi(this.state.name)
   }
 
   render () {
@@ -52,11 +57,7 @@ class SearchMovie extends React.PureComponent {
             <input
               type='text'
               placeholder='Type a movie'
-              defaultValue={
-                this.props.location.key
-                  ? this.props.match.params.movie
-                  : this.state.name
-              }
+              defaultValue={this.getQueryName()}
               onChange={this.onInputChange}
             />
             <br />
