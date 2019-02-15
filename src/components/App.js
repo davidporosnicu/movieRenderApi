@@ -14,6 +14,12 @@ class App extends React.Component {
             <Route exact path='/' component={Movies} />
             <Route exact path='/movie/:id' component={Movie} />
             <Route exact path='/search' component={SearchMovie} />
+            <Route
+              exact
+              path='/search/:movie'
+              name='movie'
+              component={SearchMovie}
+            />
             <Route component={Error} />
           </Switch>
         </div>
