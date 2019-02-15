@@ -1,15 +1,19 @@
 import React from 'react'
 import axios from 'axios'
-import MovieCard from './MovieCard'
+import MovieList from './MovieList'
 
 class SearchMovie extends React.PureComponent {
   constructor () {
     super()
-    this.state = { name: '', moviesArray: [], toggle: 0 }
+    this.state = { name: '', moviesArray: [] }
   }
 
   onInputChange = e => {
     this.setState({ name: e.target.value })
+  }
+
+  onFormSubmit = e => {
+    e.preventDefault()
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=1f334378cac29e0294a146e77d2aa505&language=en-US&query=${
@@ -22,12 +26,8 @@ class SearchMovie extends React.PureComponent {
       })
   }
 
-  onFormSubmit = e => {
-    e.preventDefault()
-    this.setState({ toggle: 1 })
-  }
-
   render () {
+    console.log(this.props)
     return (
       <div className='ui container'>
         <form className='ui form' onSubmit={this.onFormSubmit}>
@@ -49,19 +49,7 @@ class SearchMovie extends React.PureComponent {
             <br />
           </div>
         </form>
-        <div>
-          <ul style={{ listStyleType: 'none' }}>
-            {this.state.moviesArray.map(movie => (
-              <li key={movie.id}>
-                {this.state.toggle === 1 && this.state.name !== '' ? (
-                  <MovieCard details={movie} />
-                ) : (
-                  ''
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <MovieList moviesArray={this.state.moviesArray} />
       </div>
     )
   }
