@@ -1,35 +1,36 @@
-import React from 'react'
-import MovieCard from './MovieCard'
-import axios from 'axios'
+import React from "react";
+import MovieCard from "./MovieCard";
+import { connect } from "react-redux";
+import { getMoviesList } from "../actions/moviesActions";
 
 class Movies extends React.Component {
-  constructor () {
-    super()
-    this.state = { moviesArray: [] }
+  componentDidMount() {
+    this.props.getMoviesList();
   }
 
-  componentDidMount () {
-    axios
-      .get(
-        'https://api.themoviedb.org/3/discover/movie?api_key=1f334378cac29e0294a146e77d2aa505'
-      )
-      .then(response => {
-        this.setState({ moviesArray: response.data.results })
-      })
-  }
-  render () {
+  render() {
+    const { moviesArray } = this.props;
     return (
       <div>
-        <ul style={{ listStyleType: 'none' }}>
-          {this.state.moviesArray.map(movie => (
+        <ul style={{ listStyleType: "none" }}>
+          {moviesArray.map(movie => (
             <li key={movie.id}>
               <MovieCard details={movie} />
             </li>
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default Movies
+const mapStateToProps = state => {
+  return {
+    moviesArray: state.movie.moviesArray
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getMoviesList }
+)(Movies);
